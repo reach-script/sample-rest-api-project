@@ -1,0 +1,542 @@
+swagger: '2.0'
+info:
+  title: Task
+  version: '1.0'
+host: 'localhost:3000'
+schemes:
+  - http
+produces:
+  - application/json
+consumes:
+  - application/json
+paths:
+  '/users/{userId}':
+    parameters:
+      - type: integer
+        name: userId
+        in: path
+        required: true
+        description: Id of an existing user.
+    get:
+      summary: Get User Info by User ID
+      tags: []
+      responses:
+        '200':
+          description: User Found
+          schema:
+            $ref: '#/definitions/User'
+          examples:
+            Get User Alice Smith:
+              id: 142
+              firstName: Alice
+              lastName: Smith
+              email: alice.smith@gmail.com
+              dateOfBirth: '1997-10-31'
+              emailVerified: true
+              signUpDate: '2019-08-24'
+        '404':
+          description: User Not Found
+          schema:
+            type: 'null'
+          examples: {}
+      operationId: get-users-userId
+      description: Retrieve the information of the user with the matching user ID.
+    patch:
+      summary: Update User Information
+      operationId: patch-users-userId
+      responses:
+        '200':
+          description: User Updated
+          schema:
+            $ref: '#/definitions/User'
+          examples:
+            Update User Rebecca Baker:
+              id: 13
+              firstName: Rebecca
+              lastName: Baker
+              email: rebecca@gmail.com
+              dateOfBirth: '1985-10-02'
+              emailVerified: false
+              createDate: '2019-08-24'
+        '404':
+          description: User Not Found
+          schema:
+            type: 'null'
+        '409':
+          description: Email Already Taken
+          schema:
+            type: 'null'
+      description: Update the information of an existing user.
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              email:
+                type: string
+                description: 'If a new email is given, the user''s email verified property will be set to false.'
+              dateOfBirth:
+                type: string
+          description: Patch user properties to update.
+          x-examples:
+            Update First Name:
+              firstName: Rebecca
+            Update Email:
+              email: rebecca@gmail.com
+            Update Last Name & Date of Birth:
+              lastName: Baker
+              dateOfBirth: '1985-10-02'
+  /user:
+    post:
+      summary: Create New User
+      operationId: post-user
+      responses:
+        '200':
+          description: User Created
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Missing Required Information
+          schema:
+            type: 'null'
+        '409':
+          description: Email Already Taken
+          schema:
+            type: 'null'
+      description: Create a new user.
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              email:
+                type: string
+              dateOfBirth:
+                type: string
+                format: date
+            required:
+              - firstName
+              - lastName
+              - email
+              - dateOfBirth
+          description: Post the necessary fields for the API to create a new user.
+          x-examples:
+            Create User Bob Fellow:
+              firstName: Bob
+              lastName: Fellow
+              email: bob.fellow@gmail.com
+              dateOfBirth: '1996-08-24'
+  /tasks:
+    get:
+      summary: タスク一覧を取得します
+      tags:
+        - task
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            description: ''
+            minItems: 1
+            uniqueItems: true
+            items:
+              type: object
+              required:
+                - userId
+                - id
+                - title
+                - completed
+              properties:
+                userId:
+                  type: number
+                id:
+                  type: number
+                title:
+                  type: string
+                  minLength: 1
+                completed:
+                  type: boolean
+            x-examples:
+              example-1:
+                - userId: 1
+                  id: 1
+                  title: delectus aut autem
+                  completed: false
+                - userId: 1
+                  id: 2
+                  title: quis ut nam facilis et officia qui
+                  completed: false
+                - userId: 1
+                  id: 3
+                  title: fugiat veniam minus
+                  completed: false
+                - userId: 1
+                  id: 4
+                  title: et porro tempora
+                  completed: true
+                - userId: 1
+                  id: 5
+                  title: laboriosam mollitia et enim quasi adipisci quia provident illum
+                  completed: false
+                - userId: 1
+                  id: 6
+                  title: qui ullam ratione quibusdam voluptatem quia omnis
+                  completed: false
+                - userId: 1
+                  id: 7
+                  title: illo expedita consequatur quia in
+                  completed: false
+                - userId: 1
+                  id: 8
+                  title: quo adipisci enim quam ut ab
+                  completed: true
+                - userId: 1
+                  id: 9
+                  title: molestiae perspiciatis ipsa
+                  completed: false
+                - userId: 1
+                  id: 10
+                  title: illo est ratione doloremque quia maiores aut
+                  completed: true
+                - userId: 1
+                  id: 11
+                  title: vero rerum temporibus dolor
+                  completed: true
+                - userId: 1
+                  id: 12
+                  title: ipsa repellendus fugit nisi
+                  completed: true
+                - userId: 1
+                  id: 13
+                  title: et doloremque nulla
+                  completed: false
+                - userId: 1
+                  id: 14
+                  title: repellendus sunt dolores architecto voluptatum
+                  completed: true
+                - userId: 1
+                  id: 15
+                  title: ab voluptatum amet voluptas
+                  completed: true
+                - userId: 1
+                  id: 16
+                  title: accusamus eos facilis sint et aut voluptatem
+                  completed: true
+                - userId: 1
+                  id: 17
+                  title: quo laboriosam deleniti aut qui
+                  completed: true
+                - userId: 1
+                  id: 18
+                  title: dolorum est consequatur ea mollitia in culpa
+                  completed: false
+                - userId: 1
+                  id: 19
+                  title: molestiae ipsa aut voluptatibus pariatur dolor nihil
+                  completed: true
+                - userId: 1
+                  id: 20
+                  title: ullam nobis libero sapiente ad optio sint
+                  completed: true
+                - userId: 2
+                  id: 21
+                  title: suscipit repellat esse quibusdam voluptatem incidunt
+                  completed: false
+                - userId: 2
+                  id: 22
+                  title: distinctio vitae autem nihil ut molestias quo
+                  completed: true
+                - userId: 2
+                  id: 23
+                  title: et itaque necessitatibus maxime molestiae qui quas velit
+                  completed: false
+                - userId: 2
+                  id: 24
+                  title: adipisci non ad dicta qui amet quaerat doloribus ea
+                  completed: false
+                - userId: 2
+                  id: 25
+                  title: voluptas quo tenetur perspiciatis explicabo natus
+                  completed: true
+                - userId: 2
+                  id: 26
+                  title: aliquam aut quasi
+                  completed: true
+                - userId: 2
+                  id: 27
+                  title: veritatis pariatur delectus
+                  completed: true
+                - userId: 2
+                  id: 28
+                  title: nesciunt totam sit blanditiis sit
+                  completed: false
+                - userId: 2
+                  id: 29
+                  title: laborum aut in quam
+                  completed: false
+                - userId: 2
+                  id: 30
+                  title: nemo perspiciatis repellat ut dolor libero commodi blanditiis omnis
+                  completed: true
+                - userId: 2
+                  id: 31
+                  title: repudiandae totam in est sint facere fuga
+                  completed: false
+                - userId: 2
+                  id: 32
+                  title: earum doloribus ea doloremque quis
+                  completed: false
+                - userId: 2
+                  id: 33
+                  title: sint sit aut vero
+                  completed: false
+                - userId: 2
+                  id: 34
+                  title: porro aut necessitatibus eaque distinctio
+                  completed: false
+                - userId: 2
+                  id: 35
+                  title: repellendus veritatis molestias dicta incidunt
+                  completed: true
+                - userId: 2
+                  id: 36
+                  title: excepturi deleniti adipisci voluptatem et neque optio illum ad
+                  completed: true
+                - userId: 2
+                  id: 37
+                  title: sunt cum tempora
+                  completed: false
+                - userId: 2
+                  id: 38
+                  title: totam quia non
+                  completed: false
+                - userId: 2
+                  id: 39
+                  title: doloremque quibusdam asperiores libero corrupti illum qui omnis
+                  completed: false
+                - userId: 2
+                  id: 40
+                  title: totam atque quo nesciunt
+                  completed: true
+                - userId: 3
+                  id: 41
+                  title: aliquid amet impedit consequatur aspernatur placeat eaque fugiat suscipit
+                  completed: false
+                - userId: 3
+                  id: 42
+                  title: rerum perferendis error quia ut eveniet
+                  completed: false
+          examples:
+            example-1:
+              - userId: 1
+                id: 1
+                title: delectus aut autem
+                completed: false
+              - userId: 1
+                id: 2
+                title: quis ut nam facilis et officia qui
+                completed: false
+              - userId: 1
+                id: 3
+                title: fugiat veniam minus
+                completed: false
+              - userId: 1
+                id: 4
+                title: et porro tempora
+                completed: true
+              - userId: 1
+                id: 5
+                title: laboriosam mollitia et enim quasi adipisci quia provident illum
+                completed: false
+              - userId: 1
+                id: 6
+                title: qui ullam ratione quibusdam voluptatem quia omnis
+                completed: false
+              - userId: 1
+                id: 7
+                title: illo expedita consequatur quia in
+                completed: false
+              - userId: 1
+                id: 8
+                title: quo adipisci enim quam ut ab
+                completed: true
+              - userId: 1
+                id: 9
+                title: molestiae perspiciatis ipsa
+                completed: false
+              - userId: 1
+                id: 10
+                title: illo est ratione doloremque quia maiores aut
+                completed: true
+              - userId: 1
+                id: 11
+                title: vero rerum temporibus dolor
+                completed: true
+              - userId: 1
+                id: 12
+                title: ipsa repellendus fugit nisi
+                completed: true
+              - userId: 1
+                id: 13
+                title: et doloremque nulla
+                completed: false
+              - userId: 1
+                id: 14
+                title: repellendus sunt dolores architecto voluptatum
+                completed: true
+              - userId: 1
+                id: 15
+                title: ab voluptatum amet voluptas
+                completed: true
+              - userId: 1
+                id: 16
+                title: accusamus eos facilis sint et aut voluptatem
+                completed: true
+              - userId: 1
+                id: 17
+                title: quo laboriosam deleniti aut qui
+                completed: true
+              - userId: 1
+                id: 18
+                title: dolorum est consequatur ea mollitia in culpa
+                completed: false
+              - userId: 1
+                id: 19
+                title: molestiae ipsa aut voluptatibus pariatur dolor nihil
+                completed: true
+              - userId: 1
+                id: 20
+                title: ullam nobis libero sapiente ad optio sint
+                completed: true
+              - userId: 2
+                id: 21
+                title: suscipit repellat esse quibusdam voluptatem incidunt
+                completed: false
+              - userId: 2
+                id: 22
+                title: distinctio vitae autem nihil ut molestias quo
+                completed: true
+              - userId: 2
+                id: 23
+                title: et itaque necessitatibus maxime molestiae qui quas velit
+                completed: false
+              - userId: 2
+                id: 24
+                title: adipisci non ad dicta qui amet quaerat doloribus ea
+                completed: false
+              - userId: 2
+                id: 25
+                title: voluptas quo tenetur perspiciatis explicabo natus
+                completed: true
+              - userId: 2
+                id: 26
+                title: aliquam aut quasi
+                completed: true
+              - userId: 2
+                id: 27
+                title: veritatis pariatur delectus
+                completed: true
+              - userId: 2
+                id: 28
+                title: nesciunt totam sit blanditiis sit
+                completed: false
+              - userId: 2
+                id: 29
+                title: laborum aut in quam
+                completed: false
+              - userId: 2
+                id: 30
+                title: nemo perspiciatis repellat ut dolor libero commodi blanditiis omnis
+                completed: true
+              - userId: 2
+                id: 31
+                title: repudiandae totam in est sint facere fuga
+                completed: false
+              - userId: 2
+                id: 32
+                title: earum doloribus ea doloremque quis
+                completed: false
+              - userId: 2
+                id: 33
+                title: sint sit aut vero
+                completed: false
+              - userId: 2
+                id: 34
+                title: porro aut necessitatibus eaque distinctio
+                completed: false
+              - userId: 2
+                id: 35
+                title: repellendus veritatis molestias dicta incidunt
+                completed: true
+              - userId: 2
+                id: 36
+                title: excepturi deleniti adipisci voluptatem et neque optio illum ad
+                completed: true
+              - userId: 2
+                id: 37
+                title: sunt cum tempora
+                completed: false
+              - userId: 2
+                id: 38
+                title: totam quia non
+                completed: false
+              - userId: 2
+                id: 39
+                title: doloremque quibusdam asperiores libero corrupti illum qui omnis
+                completed: false
+              - userId: 2
+                id: 40
+                title: totam atque quo nesciunt
+                completed: true
+              - userId: 3
+                id: 41
+                title: aliquid amet impedit consequatur aspernatur placeat eaque fugiat suscipit
+                completed: false
+              - userId: 3
+                id: 42
+                title: rerum perferendis error quia ut eveniet
+                completed: false
+      operationId: get-tasks
+      parameters: []
+definitions:
+  User:
+    title: User
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique identifier for the given user.
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+        format: email
+      dateOfBirth:
+        type: string
+        format: date
+        example: '1997-10-31'
+      emailVerified:
+        type: boolean
+        description: Set to true if the user's email has been verified.
+      createDate:
+        type: string
+        format: date
+        description: The date that the user was created.
+    required:
+      - id
+      - firstName
+      - lastName
+      - email
+      - emailVerified
