@@ -149,23 +149,6 @@ paths:
             description: ''
             minItems: 1
             uniqueItems: true
-            items:
-              type: object
-              required:
-                - userId
-                - id
-                - title
-                - completed
-              properties:
-                userId:
-                  type: number
-                id:
-                  type: number
-                title:
-                  type: string
-                  minLength: 1
-                completed:
-                  type: boolean
             x-examples:
               example-1:
                 - userId: 1
@@ -336,6 +319,8 @@ paths:
                   id: 42
                   title: rerum perferendis error quia ut eveniet
                   completed: false
+            items:
+              $ref: '#/definitions/Task'
           examples:
             example-1:
               - userId: 1
@@ -540,3 +525,27 @@ definitions:
       - lastName
       - email
       - emailVerified
+  Task:
+    description: ''
+    type: object
+    properties:
+      userId:
+        type: number
+      id:
+        type: number
+      title:
+        type: string
+        minLength: 1
+      completed:
+        type: boolean
+    required:
+      - userId
+      - id
+      - title
+      - completed
+    x-examples:
+      example-1:
+        userId: 1
+        id: 1
+        title: delectus aut autem
+        completed: false
