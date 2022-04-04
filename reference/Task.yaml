@@ -19,8 +19,7 @@ paths:
         description: Id of an existing user.
     get:
       summary: Get User Info by User ID
-      tags:
-        - user
+      tags: []
       responses:
         '200':
           description: User Found
@@ -137,8 +136,6 @@ paths:
               lastName: Fellow
               email: bob.fellow@gmail.com
               dateOfBirth: '1996-08-24'
-      tags:
-        - user
   /tasks:
     get:
       summary: タスク一覧を取得します
@@ -148,7 +145,9 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Task'
+            type: array
+            items:
+              $ref: '#/definitions/Task'
       operationId: get-tasks
 definitions:
   User:
@@ -183,26 +182,4 @@ definitions:
       - email
       - emailVerified
   Task:
-    description: ''
-    type: object
-    properties:
-      userId:
-        type: number
-      id:
-        type: number
-      title:
-        type: string
-        minLength: 1
-      completed:
-        type: boolean
-    required:
-      - userId
-      - id
-      - title
-      - completed
-    x-examples:
-      example-1:
-        userId: 1
-        id: 1
-        title: delectus aut autem
-        completed: false
+    $ref: '#/definitions/Task'

@@ -135,3 +135,27 @@ definitions:
       - phone
       - website
       - company
+  Task:
+    description: タスクモデル
+    type: object
+    properties:
+      userId:
+        type: number
+      id:
+        type: number
+      title:
+        type: string
+        minLength: 1
+      completed:
+        type: boolean
+    required:
+      - userId
+      - id
+      - title
+      - completed
+    x-examples:
+      example-1:
+        userId: 1
+        id: 1
+        title: delectus aut autem
+        completed: false
