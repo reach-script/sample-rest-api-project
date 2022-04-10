@@ -1,21 +1,22 @@
 import { NextPage } from "next";
-import { Suspense } from "react";
-import { UserInfo } from "../components/UserInfo";
+import Link from "next/link";
 
 const Home: NextPage = () => {
-  const onClickFetchTasks = async () => {
-    //
-    fetch("http://localhost:3000/api/tasks");
-  };
   return (
     <>
-      <button type="button" onClick={onClickFetchTasks}>
-        fetch
-      </button>
-      <UserInfo />
+      <ul>
+        <li>
+          <Link href="/users">
+            <a>User</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/suspense">
+            <a>Suspense</a>
+          </Link>
+        </li>
+      </ul>
     </>
-    // <Suspense fallback={<div>loading...</div>}>
-    // </Suspense>
   );
 };
 
