@@ -1,8 +1,8 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   title: User
-  version: '1.0'
-host: 'localhost:3000'
+  version: "1.0"
+host: "localhost:3000"
 schemes:
   - http
 produces:
@@ -16,14 +16,14 @@ paths:
       tags:
         - User
       responses:
-        '200':
+        "200":
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/User'
+              $ref: "#/definitions/User"
       operationId: get-users
-  '/users/{userId}':
+  "/users/{userId}":
     parameters:
       - type: string
         name: userId
@@ -34,14 +34,14 @@ paths:
       tags:
         - User
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/User'
+            $ref: "#/definitions/User"
       operationId: get-users-userId
 definitions:
   User:
-    description: ''
+    description: ""
     type: object
     x-examples:
       example-1:
@@ -55,8 +55,8 @@ definitions:
           city: Gwenborough
           zipcode: 92998-3874
           geo:
-            lat: '-37.3159'
-            lng: '81.1496'
+            lat: "-37.3159"
+            lng: "81.1496"
         phone: 1-770-736-8031 x56442
         website: hildegard.org
         company:
@@ -135,27 +135,3 @@ definitions:
       - phone
       - website
       - company
-  Task:
-    description: タスクモデル
-    type: object
-    properties:
-      userId:
-        type: number
-      id:
-        type: number
-      title:
-        type: string
-        minLength: 1
-      completed:
-        type: boolean
-    required:
-      - userId
-      - id
-      - title
-      - completed
-    x-examples:
-      example-1:
-        userId: 1
-        id: 1
-        title: delectus aut autem
-        completed: false

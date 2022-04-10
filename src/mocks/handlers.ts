@@ -1,6 +1,7 @@
 import { rest } from "msw";
-import { authHandler } from "./api/auth";
-import { userHandler } from "./api/user";
+import { authHandlers } from "./api/auth";
+import { taskHandlers } from "./api/task";
+import { userHandlers } from "./api/user";
 const API = "http://localhost:3000/api";
 
-export const handlers = [...authHandler, ...userHandler];
+export const handlers = [...authHandlers, ...userHandlers, ...taskHandlers];

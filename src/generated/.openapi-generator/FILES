@@ -1,0 +1,10 @@
+.openapi-generator-ignore
+apis/UserApi.ts
+apis/index.ts
+index.ts
+models/User.ts
+models/UserAddress.ts
+models/UserAddressGeo.ts
+models/UserCompany.ts
+models/index.ts
+runtime.ts

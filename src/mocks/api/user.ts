@@ -239,6 +239,7 @@ const mockGetUserAll: ResponseResolver<
   MockedRequest,
   typeof restContext
 > = async (req, res, ctx) => {
+  console.log("request users");
   return res(ctx.status(200), ctx.json(users));
 };
 
@@ -263,7 +264,7 @@ const mockUserFindOne: ResponseResolver<MockedRequest, typeof restContext> = (
   return res(ctx.status(200), ctx.json(found));
 };
 
-export const userHandler = [
+export const userHandlers = [
   rest.get(`${API}/users`, mockGetUserAll),
   rest.get(`${API}/users/:id`, mockUserFindOne),
 ];

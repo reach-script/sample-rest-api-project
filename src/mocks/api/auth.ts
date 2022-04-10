@@ -15,7 +15,7 @@ const mockLogin: ResponseResolver<MockedRequest, typeof restContext> = async (
   );
 };
 
-export const mockLogout: ResponseResolver<MockedRequest, typeof restContext> = (
+const mockLogout: ResponseResolver<MockedRequest, typeof restContext> = (
   req,
   res,
   ctx
@@ -23,7 +23,7 @@ export const mockLogout: ResponseResolver<MockedRequest, typeof restContext> = (
   return res(ctx.status(200), ctx.json("logout"));
 };
 
-export const authHandler = [
+export const authHandlers = [
   rest.post(`${API}/login`, mockLogin),
   rest.post(`${API}/logout`, mockLogout),
 ];

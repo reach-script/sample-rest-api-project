@@ -6,20 +6,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gen": "yarn rm:gen && yarn run-p gen:*",
+    "rm:gen": "rm -rf src/generated",
+    "gen:user": "openapi-generator-cli generate -g typescript-fetch -i ./reference/User.yaml  -o ./src/generated --additional-properties=modelPropertyNaming=camelCase,supportsES6=true,withInterfaces=true,typescriptThreePlus=true"
   },
   "dependencies": {
     "next": "12.1.2",
     "react": "18.0.0",
-    "react-dom": "18.0.0"
+    "react-dom": "18.0.0",
+    "swr": "^1.2.2"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.4.26",
     "@types/node": "17.0.23",
     "@types/react": "17.0.43",
     "@types/react-dom": "17.0.14",
     "eslint": "8.12.0",
     "eslint-config-next": "12.1.2",
     "msw": "^0.39.2",
+    "npm-run-all": "^4.1.5",
     "typescript": "4.6.3"
   },
   "msw": {
